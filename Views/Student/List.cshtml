@@ -1,0 +1,38 @@
+﻿@model List<MVC_EF1.Models.StudentDBModel>
+@using MVC_EF1.Services
+
+@{ 
+    ViewData["Title"] = "Список студентов";
+}
+
+@inject StudentService service
+
+<style>
+    table, td {
+        border: 1px solid black;
+    }
+    td {
+        padding: 5px;
+    } 
+</style>
+<div style="margin-top: 20px">
+    <hr />
+    <table cellpadding="10">
+        <tr><td>Id</td><td>Name</td><td>Surname</td><td>Age</td><td>Group Id</td><td>Status</td><td></td><td></td></tr>
+        @foreach (var item in Model)
+        {
+            if (item.Id > -1)
+            {
+                <tr><td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Surname</td>
+                <td>@item.Age</td>
+                <td>@item.GroupId</td>
+                <td>@item.Status</td>
+                <td><a href="@Url.Action("Edit", "Student", new { num = @item.Id })">Редактировать</a></td>
+                <td><a href="@Url.Action("Remove", "Student", new { studentId = @item.Id })">Удалить</a></td></tr>
+            }
+        }
+        <tr><td colspan="8"><a href="@Url.Action("Add", "Student")">Добавить студента</a></td></tr>
+    </table>
+</div>
